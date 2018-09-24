@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MaxJsonServer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,6 +26,8 @@ namespace MaxJsonServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+			var conn = @"server=dsi-workstation\sqlexpress;database=MaxDb;Trusted_connection=true;";
+			services.AddDbContext<MaxDbContext>(options => options.UseSqlServer(conn));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
